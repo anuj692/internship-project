@@ -1,0 +1,38 @@
+# ============================================================================
+# Core Backend Dependencies (only packages actually used by the project)
+# ============================================================================
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# --- Web Framework ---
+fastapi==0.135.2
+uvicorn==0.42.0
+python-multipart==0.0.24
+pydantic==2.12.5
+
+# --- Environment ---
+python-dotenv==1.2.2
+
+# --- PDF Parsing ---
+PyPDF2==3.0.1
+
+# --- LangChain Core ---
+langchain==1.2.14
+langchain-core==1.2.22
+langchain-text-splitters==1.1.1
+langchain-community==0.4.1
+langchain-groq==1.1.2
+langchain-huggingface==1.2.1
+
+# --- LLM Provider ---
+groq==0.37.1
+
+# --- Embeddings & Retrieval ---
+sentence-transformers==5.3.0
+faiss-cpu==1.13.2
+rank-bm25==0.2.2
+
+# --- ML Dependencies (required by sentence-transformers) ---
+torch==2.11.0
+transformers==5.3.0
+numpy==2.4.3
+scikit-learn==1.8.0

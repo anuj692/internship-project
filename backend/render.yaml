@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: rag-chatbot
+    env: python
+    plan: free
+    branch: main
+    buildCommand: bash render_build.sh
+    startCommand: bash start.sh
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: GROQ_API_KEY
+        sync: false
