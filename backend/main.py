@@ -85,7 +85,7 @@ async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
     )
 
 # ─── CORS Configuration ───────────────────────────────────────────────────────
-cors_origins_env = os.getenv("CORS_ORIGINS", "https://rag-chatbot.netlify.app,http://localhost:5173,http://localhost:8000")
+cors_origins_env = os.getenv("CORS_ORIGINS", "https://internshi23.netlify.app,https://internship-project-1-ucof.onrender.com,http://localhost:5173,http://localhost:8000")
 cors_origins_env = " ".join(cors_origins_env.split())  # Clean whitespace
 cors_origins = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
 
