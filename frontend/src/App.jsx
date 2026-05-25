@@ -6,9 +6,9 @@ import {
 import './App.css';
 
 // The base URL for the FastAPI backend
-// In development, we use localhost. In production, use VITE_API_BASE_URL (set during build).
-// Example: VITE_API_BASE_URL=https://your-backend-domain.com npm run build
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+// In development, we use localhost. In production, use VITE_API_URL (set during build).
+// Example: VITE_API_URL=https://your-backend-domain.com npm run build
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 function App() {
   const [sessions, setSessions] = useState([]);
