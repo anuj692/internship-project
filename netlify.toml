@@ -1,7 +1,11 @@
 [build]
   base = "frontend"
-  command = "npm run build"
+  command = "npm ci && npm run build"
   publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  VITE_API_URL = "https://internship-project-1-ucof.onrender.com"
 
 [[redirects]]
   from = "/*"
