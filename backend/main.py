@@ -56,6 +56,15 @@ async def lifespan(app: FastAPI):
     else:
         logger.info(f"GROQ_API_KEY is configured (key length: {len(groq_key)} chars)")
     
+    # Pre-warm RAG engine on startup to catch import errors early
+    logger.info("Pre-warming RAG engine to catch initialization errors early...")
+    try:
+        engine = get_rag_engine()
+        logger.info(f"RAG engine initialized successfully. Active sessions: {len(engine.sessions)}")
+    except Exception as e:
+        logger.error(f"CRITICAL: RAG engine initialization failed: {str(e)}", exc_info=True)
+        # Don't crash startup, let health checks catch this
+    
     yield
     
     # Shutdown
@@ -127,12 +136,21 @@ async def readiness_check():
 
 # Lazy import: rag_engine pulls in ML dependencies; delaying it speeds up server startup.
 _rag_engine = None
+_import_error = None
 
 def get_rag_engine():
-    global _rag_engine
+    global _rag_engine, _import_error
+    if _import_error:
+        raise RuntimeError(f"RAG engine import failed: {_import_error}")
     if _rag_engine is None:
-        import rag_engine as _module
-        _rag_engine = _module
+        try:
+            import rag_engine as _module
+            _rag_engine = _module
+            logger.info("RAG engine imported successfully")
+        except Exception as e:
+            _import_error = str(e)
+            logger.error(f"Failed to import RAG engine: {str(e)}", exc_info=True)
+            raise RuntimeError(f"RAG engine initialization failed: {str(e)}")
     return _rag_engine
 
 # Serve static files from the React build directory if it exists
