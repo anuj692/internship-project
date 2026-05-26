@@ -27,7 +27,8 @@ load_dotenv()
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
+# Using lightweight embedding model for free-tier deployment (~30MB vs 100MB)
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-TinyRoBERTa-L6-v2")
 LLM_MODEL = os.getenv("LLM_MODEL", "llama-3.1-8b-instant")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.1"))
 
